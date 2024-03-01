@@ -1,13 +1,20 @@
 <template>
+  
+    <base-dialog :show="!!error" @close="handleerror" title="An error accured"> 
+  {{ error }} 
+</base-dialog>
   <section>
     <base-card>
       <header><h2>Request Received</h2></header>
-      <ul v-if="hasrequest">
+      <div v-if="isloading">
+        <base-spinner></base-spinner>
+      </div>
+      <ul v-else-if="!hasrequest && !isloading">
         <request-item
           v-for="request in requests"
           :key="request.id"
-          :message="request.message"
-          :email="request.email"
+          :message="request.userMessage"
+          :email="request.userEmail"
         ></request-item>
       </ul>
       <h3 v-else>You have not recevied any messages</h3>
@@ -20,11 +27,18 @@ export default {
   components: {
     RequestItem,
   },
-  //   data() {
+  //   data() { 
+    data(){
+      return{
+        req: this.$store.getters['request/requestsG'],
+        isloading:false,
+        error:null,
+      }
+    },
 
   computed: {
     requests() {
-      return this.$store.getters['request/requests'];
+      return this.$store.getters['request/requestsG'];
     },
     hasrequest() {
       return this.$store.getters['request/hasrequest'];
@@ -36,12 +50,28 @@ export default {
       return this.request[0].emails;
     },
   },
+  created(){
+    this.loadrequests();
+
+  },
   methods: {
-    show() {
-      console.log(this.request[0].messages);
-      console.log(this.request[0].emails);
-      console.log();
+ 
+   async loadrequests() {
+    this.isloading=true;
+      try{
+       
+      await this.$store.dispatch('request/loadrequest')
+     
+      }
+            catch (error){
+              this.error=error || 'Some thing going wrong'
+            }
+            this.isloading=false
     },
+    handleerror(){
+      this.error=null;
+  
+    }
   },
 };
 </script>

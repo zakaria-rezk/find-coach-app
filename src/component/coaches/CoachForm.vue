@@ -35,7 +35,7 @@
         value="frontend"
         v-model="areas.val"
       />
-      <label for="frontend">frontend</label>
+      <label for="frontend">Backend</label>
       <input
         type="checkbox"
         name=""
@@ -43,7 +43,7 @@
         value="backend"
         v-model="areas.val"
       />
-      <label for="backend">backend</label>
+      <label for="backend">Frontend</label>
       <input
         type="checkbox"
         name=""
@@ -51,7 +51,7 @@
         value="career"
         v-model="areas.val"
       />
-      <label for="career">career</label>
+      <label for="career">Career</label>
       <p v-if="!areas.isvalid">pleas enter a valid areas of experites</p>
     </div>
     <base-button @click="submitform">register</base-button>

@@ -3,11 +3,11 @@
    <h2>Find Your Coach</h2> 
    <span class="filter-option">
    <input type="checkbox" name="front-end" id="frontend" checked @change="updatefilter">
-   <label for="front-end">front-end</label>
+   <label for="front-end">Frontend</label>
    <input type="checkbox" name="career" id="career" checked  @change="updatefilter">
-   <label for="career">career</label>
+   <label for="career">Career</label>
    <input type="checkbox" name="back-end" id="backend" checked  @change="updatefilter">
-   <label for="back-end">back-end</label>
+   <label for="back-end">Backend</label>
    </span>
     </base-card>
 </template>

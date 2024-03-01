@@ -1,6 +1,10 @@
 export default{
-    addrequest(state,paylod){
+    addrequests(state,paylod){
         state.requests.push(paylod);
 
-    }
+    },
+    getrequests(state, payload) {
+        state.requests = payload;
+        
+      }
 }

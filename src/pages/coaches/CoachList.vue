@@ -1,5 +1,5 @@
 <template>
-  <base-dialog :show="!!error" @close="handleerror"> 
+  <base-dialog :show="!!error" @close="handleerror" title="An error accured"> 
   {{ error }} 
 </base-dialog>
   <section>
@@ -24,6 +24,7 @@
           :firstName="coach.firstName"
           :lastName="coach.lastName"
           :hourlyRate="coach.hourlyRate"
+          
         ></coach-item>
       </ul>
       <ul v-else>
@@ -60,8 +61,8 @@ export default {
   },
   computed: {
     filterdcoach() {
-    const  activecoahes= this.$store.getters['coach/coaches'];
-    console.log(activecoahes[activecoahes.length-1].iscoach)
+    const activecoahes= this.$store.getters['coach/coaches'];
+   
    return activecoahes.filter((c=>{
       if (this.coacheslist.frontend && c.areas.includes('frontend')) return true
       if (this.coacheslist.career && c.areas.includes('career'))return true
@@ -71,7 +72,7 @@ export default {
   
     },
     hascoach() {
-      return this.$store.getters['coach/hascoach'];
+      return !this.isloading &&  this.$store.getters['coach/hascoach'];
     },
     iscoach(){
       const coaches= this.$store.getters['coach/coaches'];
@@ -79,18 +80,24 @@ export default {
     }
   
   },
+  created(){
+    this.laodcoaches();
+  },
   methods:{
-      showfilter(updatedfilter){
+       showfilter(updatedfilter){
         this.coacheslist=updatedfilter;
       },
-      laodcoaches(){
-        try{
-        this.$store.dispatch('coaches/loadcoaches')
+      async  laodcoaches(){
+        this.isloading=true;
+       try{
+       await this.$store.dispatch('coach/loadcoaches')
         }
         catch (error){
           this.error =error || 'something went wrong';
 
         }
+        this.isloading=false;
+       
       },
       handleerror(){
         this.error =null

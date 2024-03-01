@@ -1,6 +1,6 @@
 <template>
 <li>
-  <a :href="emaillink">{{ email }}</a>
+  <a :href="emaillink"> {{ email }}</a>
     <p>{{ message }}</p>
    
 </li>
@@ -8,9 +8,7 @@
 <script>
  export default{
 props:['message','email'],
- data(){
 
- },
  computed:{
     emaillink(){
         return 'mailto:' +this.email

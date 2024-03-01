@@ -43,7 +43,7 @@ export default{
                 email:this.email,
                 mess:this.messsage,  
             }
-            console.log('request end'+ data.email)
+            
             this.$store.dispatch('request/addrequest',data)
             this.$router.replace('/');
             

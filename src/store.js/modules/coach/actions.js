@@ -9,7 +9,10 @@ export default {
       description: coachdata.desc,
       hourlyRate: coachdata.rate,
     };
-    console.log(userId + 'user id');
+  
+    //SEND DATA TO BACKEND
+    
+    
     const resopnse = await fetch(
       `https://vue-app-cdefa-default-rtdb.firebaseio.com/coaches/${userId}.json`,
       {
@@ -17,7 +20,8 @@ export default {
         body: JSON.stringify(data),
       }
     );
-
+    // const responsedata =await resopnse.json();
+  
     if (!resopnse.ok) {
       //error handling
     }
@@ -27,28 +31,32 @@ export default {
       id: userId,
     });
   },
-  //load coaches from a backend insted of vuex
+  //recice data from backend
   async loadcoaches(context) {
     const response = await fetch(
       `https://vue-app-cdefa-default-rtdb.firebaseio.com/coaches.json`
     );
     const reponsedata = await response.json();
+    
     if (!response.ok) {
-      // const error =new Error(reponsedata.message)
-      // throw error;
+      const error =new Error('Can not fetch coach data')
+      throw error;
     }
+
     const coaches = [];
     for (const key in reponsedata) {
+     
       const coach = {
         id: key,
-        firstName: reponsedata[key].first,
-        lastName: reponsedata[key].last,
+        firstName: reponsedata[key].firstName,
+        lastName: reponsedata[key].lastName,
         areas: reponsedata[key].areas,
-        description: reponsedata[key].desc,
-        hourlyRate: reponsedata[key].rate,
+        description: reponsedata[key].description,
+        hourlyRate: reponsedata[key].hourlyRate,
       };
       coaches.push(coach);
     }
+   
     context.commit('loadcoaches', coaches);
   },
 };
