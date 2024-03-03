@@ -10,7 +10,8 @@
     <base-card>
       <div class="controls">
         <base-button mode="outline" @click="laodcoaches">Refresh</base-button>
-        <base-button link to="register" v-if="!iscoach && !isloading" >Register as a coach</base-button>
+        <base-button link to="auth?redirect=register" v-if="!islogedin">Login to register as a coach</base-button>
+        <base-button link to="register" v-if="islogedin &&  !isloading" >Register as a coach</base-button>
       </div>
       <div v-if="isloading">
         <base-spinner></base-spinner>
@@ -62,6 +63,7 @@ export default {
   computed: {
     filterdcoach() {
     const activecoahes= this.$store.getters['coach/coaches'];
+    console.log(activecoahes)
    
    return activecoahes.filter((c=>{
       if (this.coacheslist.frontend && c.areas.includes('frontend')) return true
@@ -71,13 +73,13 @@ export default {
     }))
   
     },
+    islogedin(){
+      return this.$store.getters.isauth
+    },
     hascoach() {
       return !this.isloading &&  this.$store.getters['coach/hascoach'];
     },
-    iscoach(){
-      const coaches= this.$store.getters['coach/coaches'];
-      return coaches[coaches.length-1].iscoach
-    }
+  
   
   },
   created(){

@@ -1,6 +1,6 @@
 export default {
   async addcoach(context, coachdata) {
-    const userId = context.rootGetters.avtiveuser;
+   
     const data = {
       iscoach: coachdata.iscoach,
       firstName: coachdata.first,
@@ -11,19 +11,19 @@ export default {
     };
   
     //SEND DATA TO BACKEND
-    
-    
-    const resopnse = await fetch(
-      `https://vue-app-cdefa-default-rtdb.firebaseio.com/coaches/${userId}.json`,
+    const token =context.rootGetters.userToken
+    const userId = context.rootGetters.avtiveuser;
+    const resopnse = await fetch(`https://vue-app-cdefa-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` + token,
       {
-        method: 'PUT',
+        method:'PUT',
         body: JSON.stringify(data),
       }
     );
     // const responsedata =await resopnse.json();
   
     if (!resopnse.ok) {
-      //error handling
+      const error =new Error('Can not fetch coach data')
+      throw error;
     }
 
     context.commit('addcoach', {
@@ -31,21 +31,23 @@ export default {
       id: userId,
     });
   },
-  //recice data from backend
-  async loadcoaches(context) {
-    const response = await fetch(
-      `https://vue-app-cdefa-default-rtdb.firebaseio.com/coaches.json`
-    );
+  
+  async loadcoaches(context){
+    // const token =context.rootGetters.userToken
+    // const userId = context.rootGetters.avtiveuser;
+    const response = await fetch('https://vue-app-cdefa-default-rtdb.firebaseio.com/coaches.json')
+   
     const reponsedata = await response.json();
-    
+   
     if (!response.ok) {
       const error =new Error('Can not fetch coach data')
       throw error;
     }
 
     const coaches = [];
+    
     for (const key in reponsedata) {
-     
+      console.log('response data coaches'+reponsedata[key])
       const coach = {
         id: key,
         firstName: reponsedata[key].firstName,
@@ -59,4 +61,5 @@ export default {
    
     context.commit('loadcoaches', coaches);
   },
-};
+
+}

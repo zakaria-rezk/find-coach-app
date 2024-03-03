@@ -4,6 +4,7 @@ export default{
 
     },
     getrequests(state, payload) {
+        console.log('mtattion'+ payload[0].userEmail)
         state.requests = payload;
         
       }

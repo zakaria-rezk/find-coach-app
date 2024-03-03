@@ -1,11 +1,13 @@
 export default{
-    requestsG(state){
+    requestsG(state,_1,_2,rootGetters){
         // const id =rootGetters.avtiveuser;
+        const coachId = rootGetters.avtiveuser;
+        console.log('requestiiiid' + state.requests[0])
+        return state.requests.filter(req => req.coachId === coachId);
         
-        
-        return state.requests
+       
     },
-    hasrequest(state,_,getter){
-        return getter.requests && getter.requests.length >0
+    hasrequest(state){
+        return state.requests && state.requests.length >0
     }
 }

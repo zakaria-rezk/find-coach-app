@@ -6,10 +6,10 @@
   <section>
     <base-card>
       <header><h2>Request Received</h2></header>
-      <div v-if="isloading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul v-else-if="!hasrequest && !isloading">
+    
+        <base-spinner v-if="isloading"></base-spinner>
+    
+      <ul v-else-if="hasrequest && !isloading ">
         <request-item
           v-for="request in requests"
           :key="request.id"
@@ -18,6 +18,7 @@
         ></request-item>
       </ul>
       <h3 v-else>You have not recevied any messages</h3>
+      
     </base-card>
   </section>
 </template>
@@ -43,30 +44,34 @@ export default {
     hasrequest() {
       return this.$store.getters['request/hasrequest'];
     },
-    mess() {
-      return this.request[0].messages;
-    },
-    add() {
-      return this.request[0].emails;
-    },
+
   },
   created(){
     this.loadrequests();
 
   },
   methods: {
- 
+//     test(){
+//       const re= this.$store.getters['request/hasrequest']
+//       console.log(re)
+//     }
+//  ,
    async loadrequests() {
     this.isloading=true;
       try{
        
       await this.$store.dispatch('request/loadrequest')
      
+     
       }
             catch (error){
-              this.error=error || 'Some thing going wrong'
+              if(!this.hasrequest)
+              this.error= "'You haven't any requests yet'"
+            else {
+              this.error=error.message || 'some thing went worng'
             }
-            this.isloading=false
+            }
+            this.isloading=false;
     },
     handleerror(){
       this.error=null;
