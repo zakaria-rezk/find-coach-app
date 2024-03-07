@@ -1,4 +1,4 @@
-This project is the result of completing the Vue.js 2 - The Complete Guide course on Udemy. It showcases the practical implementation of Vue.js concepts learned during the course
+Find Coach App is a web application designed to connect individuals with personal coaches and mentors. Whether you are seeking guidance in career development or personal growth, Find Coach App helps you discover and connect with experienced coaches who can support you on your journey.
 ## Installation
 
 ```bash
