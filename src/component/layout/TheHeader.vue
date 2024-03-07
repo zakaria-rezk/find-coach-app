@@ -1,42 +1,40 @@
 <template>
-    <header>
-        <nav>
-            <h1>
-                <router-link to="/">Find a coach</router-link>
-            </h1>
-                <ul>
-                    <li>
-                        <router-link to="/coaches">All Coaches </router-link>
-                    </li>
-                    <li v-if="islogedin">
-                        <router-link to="/request" >Requests </router-link>
-                    </li>
-                    <li  v-else-if="!islogedin">
-                        <router-link to="/auth">LogIn</router-link>
-                    </li>
-                    <li  v-if="islogedin" >
-                       <base-button @click="logout">Logout </base-button> 
-                    </li>
-                </ul>
-        
-            
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <h1>
+        <router-link to="/">Find a coach</router-link>
+      </h1>
+      <ul>
+        <li>
+          <router-link to="/coaches">All Coaches </router-link>
+        </li>
+        <li v-if="islogedin">
+          <router-link to="/request">Requests </router-link>
+        </li>
+        <li v-else-if="!islogedin">
+          <router-link to="/auth">LogIn</router-link>
+        </li>
+        <li v-if="islogedin">
+          <base-button @click="logout">Logout </base-button>
+        </li>
+      </ul>
+    </nav>
+  </header>
 </template>
 <script>
- export default{
-  computed:{
-    islogedin(){
-      return this.$store.getters.isauth
-    }
+export default {
+  computed: {
+    islogedin() {
+      return this.$store.getters.isauth;
+    },
   },
-  methods:{
-    logout(){
-      this.$store.dispatch('logout')
-      this.$router.replace('/coaches')
-    }
-  }
- }
+  methods: {
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.replace('/coaches');
+    },
+  },
+};
 </script>
 <style scoped>
 header {

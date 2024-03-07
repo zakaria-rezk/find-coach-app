@@ -1,21 +1,19 @@
 <template>
-<li>
-  <a :href="emaillink"> {{ email }}</a>
+  <li>
+    <a :href="emaillink"> {{ email }}</a>
     <p>{{ message }}</p>
-   
-</li>
+  </li>
 </template>
 <script>
- export default{
-props:['message','email'],
+export default {
+  props: ['message', 'email'],
 
- computed:{
-    emaillink(){
-        return 'mailto:' +this.email
-    }
- }
- }
-
+  computed: {
+    emaillink() {
+      return 'mailto:' + this.email;
+    },
+  },
+};
 </script>
 <style scoped>
 li {

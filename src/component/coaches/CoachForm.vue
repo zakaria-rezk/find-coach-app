@@ -1,12 +1,12 @@
 <template>
   <form action="">
     <div class="form-control" :class= "{invalid:  !firstname.isvalid}">
-      <label for="firstname">Firstname</label>
+      <label for="firstname">First Name</label>
       <input type="text" name="" id="firstname" v-model.trim="firstname.val" />
       <p v-if="!firstname.isvalid">pleas enter a valid name</p>
     </div>
     <div class="form-control" :class= "{invalid:  !lastname.isvalid}">
-      <label for="lastname">Lastname</label>
+      <label for="lastname">Last Name</label>
       <input type="text" id="lastname" v-model.trim="lastname.val" />
       <p v-if="!lastname.isvalid">pleas enter a valid name</p>
 
@@ -31,16 +31,16 @@
       <input
         type="checkbox"
         name=""
-        id="frontend"
-        value="frontend"
+        id="backend"
+        value="backend"
         v-model="areas.val"
       />
       <label for="frontend">Backend</label>
       <input
         type="checkbox"
         name=""
-        id="backend"
-        value="backend"
+        id="frontend"
+        value="frontend"
         v-model="areas.val"
       />
       <label for="backend">Frontend</label>

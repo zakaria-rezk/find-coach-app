@@ -6,23 +6,23 @@
     <base-dialog :show="isLoading" title="Authenticating..." fixed>
       <base-spinner></base-spinner>
     </base-dialog>
-  <base-card>
-    <form @submit.prevent="submitForm">
-      <div class="form-control">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" v-model="email" />
-      </div>
-      <div class="form-control">
-        <label for="password">password</label>
-        <input type="password" id="password" v-model="password" />
-      </div>
-      <p v-if="!formIsValid">please enter the correct email and password</p>
-      <base-button>{{ submitButtonCaption }}</base-button>
-      <base-button mode="flat" @click="switchAuthMode">
-        {{ switchModeButtonCaptoin }}</base-button
-      >
-    </form>
-  </base-card>
+    <base-card>
+      <form @submit.prevent="submitForm">
+        <div class="form-control">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" v-model="email" />
+        </div>
+        <div class="form-control">
+          <label for="password">password</label>
+          <input type="password" id="password" v-model="password" />
+        </div>
+        <p v-if="!formIsValid">please enter the correct email and password</p>
+        <base-button>{{ submitButtonCaption }}</base-button>
+        <base-button mode="flat" @click="switchAuthMode">
+          {{ switchModeButtonCaptoin }}</base-button
+        >
+      </form>
+    </base-card>
   </div>
 </template>
 <script>
@@ -58,20 +58,20 @@ export default {
       if (
         this.email === '' ||
         !this.email.includes('@') ||
-        this.password.length < 6 ||!this.email.includes('.com')
+        this.password.length < 6 ||
+        !this.email.includes('.com')
       ) {
         this.formIsValid = false;
         return;
       }
       this.isLoading = true;
-      try
-      {
+      try {
         if (this.mode === 'login') {
           await this.$store.dispatch('login', {
             email: this.email,
             password: this.password,
           });
-          
+
           //
         } else {
           console.log('signedup');
@@ -81,21 +81,16 @@ export default {
           });
         }
         const redirectUrl = this.$route.query.redirect;
-       
+
         if (redirectUrl) {
           this.$router.replace('/' + redirectUrl);
-        }
-       else if (this.$store.getters.isauth) {
+        } else if (this.$store.getters.isauth) {
           this.$router.replace('/coaches');
         }
-      }
-      catch(err){
-       this.formIsValid = false
+      } catch (err) {
+        this.formIsValid = false;
       }
       this.isLoading = false;
-      
-      
-     
     },
     switchAuthMode() {
       if (this.mode === 'login') {

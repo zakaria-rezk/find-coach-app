@@ -9,7 +9,7 @@
     <base-card>
       <header>
         <h2>Interested? Reach out now</h2>
-        
+
         <base-button link :to="contactlink">Contact</base-button>
       </header>
       <router-view></router-view>
@@ -17,8 +17,13 @@
   </section>
   <section>
     <base-card>
-    <base-badge v-for="area in areas" :key="area" :type="area" :title="area"></base-badge>
-      <p> {{ description }}</p>
+      <base-badge
+        v-for="area in areas"
+        :key="area"
+        :type="area"
+        :title="area"
+      ></base-badge>
+      <p>{{ description }}</p>
     </base-card>
   </section>
 </template>
@@ -28,7 +33,6 @@ export default {
   data() {
     return {
       coachdetail: this.$store.getters['coach/coaches'],
-      
     };
   },
 
@@ -40,24 +44,19 @@ export default {
       return this.$store.getters['coach/coaches'].find(
         (co) => co.id === this.id
       );
-
-    
     },
-    areas(){
-        return this.selectedcoach.areas
+    areas() {
+      return this.selectedcoach.areas;
     },
-    description(){
-        return this.selectedcoach.description
+    description() {
+      return this.selectedcoach.description;
     },
-    contactlink(){
-      
-        return '/coaches' + '/' + this.$route.params.id + '/contact'
-        
+    contactlink() {
+      return '/coaches' + '/' + this.$route.params.id + '/contact';
     },
-    rate(){
-     return  this.selectedcoach.hourlyRate
-    }
+    rate() {
+      return this.selectedcoach.hourlyRate;
+    },
   },
- 
 };
 </script>
