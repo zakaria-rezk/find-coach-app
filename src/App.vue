@@ -13,6 +13,9 @@ export default {
     TheHeader,
   
 
+  },
+  created(){
+    this.$store.dispatch('autoLogin')
   }
 
 }

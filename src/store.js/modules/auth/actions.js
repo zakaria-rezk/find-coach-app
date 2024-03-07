@@ -10,13 +10,14 @@ export default {
              })  
          })
          const reponseDate =await response.json();
-         console.log('falid to loing'+reponseDate.localId)
-         console.log('falid to loing'+reponseDate.expiresIn)
+         
          if(!response.ok){
             
             const error =new Error (reponseDate.message || 'faild to authenticate')
              throw error
          }
+       localStorage.setItem('token',reponseDate.idToken)
+         localStorage.setItem('id',reponseDate.localId)
          context.commit('setUser',{
             userid :reponseDate.localId,
              token:reponseDate.idToken,
@@ -25,7 +26,18 @@ export default {
          })
  
      },
+    autoLogin(context){
+        const token =localStorage.getItem('token')
+        const id =localStorage.getItem('id') 
+        if(token && id){
+            context.commit('setUser',{
+                userid :id,
+                 token:token ,
+                 expiresIn:null,
      
+             })
+        }
+    },
    async signup(context,paylod){
        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCpPs4T1LOUpOHcskCeBp7TmpuHIwjgvbM',{
             method:'POST',
